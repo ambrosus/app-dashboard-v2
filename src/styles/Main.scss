@@ -1,0 +1,22 @@
+@import "./utilites/variables";
+
+// Mixins
+
+@import "./utilites/icons";
+@import "./utilites/base";
+@import "./utilites/_mixins.css";
+
+// Fonts
+@import "./fonts/fonts";
+
+// Layout
+@import "./layout/layout";
+@import "./layout/header";
+@import "./layout/footer";
+
+// components
+
+
+//pages
+@import "pages/dashboard";
+@import "pages/login";

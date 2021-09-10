@@ -1,0 +1,22 @@
+.login-page{
+  background: linear-gradient(#4f299b,#122283 50%,#0c1656);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF4F299B', endColorstr='#FF0C1656', GradientType=0);
+  -webkit-animation: .9s 1s forwards animateGradient;
+  animation: .9s 1s forwards animateGradient;
+  background-position: 0 100%;
+}
+app-login {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  width: 100%;
+
+  .form {
+    label {
+      margin-bottom: 25px;
+    }
+  }
+}
