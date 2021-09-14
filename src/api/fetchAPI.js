@@ -1,5 +1,3 @@
-/*eslint-disable*/
-
 export function fetchAPI(url, path, options) {
   const fetchOptions = {};
   fetchOptions.method = options && (options.method || 'GET');

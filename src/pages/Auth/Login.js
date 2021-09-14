@@ -1,60 +1,48 @@
-/*eslint-disable*/
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import messageService from '../../services/message.service';
 import storageService from '../../services/storage.service';
 import accountsService from '../../services/accounts.service';
-import Web3 from 'web3';
 import loginLogoImg from '../../assets/raster/login-logo.png';
 import authService from '../../services/auth.service';
 
 const Login = observer(() => {
-  const [isAccount, setIsAccount] = useState(null);
   const [privateKey, setPrivateKey] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(null);
-  const web3 = new Web3();
-  const history = useHistory();
-  const login = () => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        await authService.login(email, password);
-        messageService.dismissAll();
-        resolve();
-      } catch (error) {
-        console.error('[LOGIN] Error: ', error);
-        messageService.error(error, 'Email or password are incorrect', true);
-        reject();
-      }
-    });
-  };
-  const getAccount = (e) => {
+  // const [isAccount, setIsAccount] = useState(null);
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState(null);
+  // const login = () => {
+  //   return new Promise(async (resolve, reject) => {
+  //     try {
+  //       await authService.login(email, password);
+  //       messageService.dismissAll();
+  //       resolve();
+  //     } catch (error) {
+  //       console.error('[LOGIN] Error: ', error);
+  //       messageService.error(error, 'Email or password are incorrect', true);
+  //       reject();
+  //     }
+  //   });
+  // };
+  const getAccount = async (e) => {
     e.preventDefault();
-    return new Promise(async (resolve, reject) => {
-      try {
-        const address = authService.privateKeyToAccount(privateKey);
-        console.log('address', address);
-        storageService.set('secret', privateKey);
-        storageService.set('token', authService.getToken());
+    try {
+      const address = authService.privateKeyToAccount(privateKey);
+      storageService.set('secret', privateKey);
+      storageService.set('token', authService.getToken());
 
-        const account = await accountsService.getAccount(address);
-        if (account) {
-          console.log('account', account);
-          storageService.set('secret', privateKey);
-          storageService.set('account', account);
-          accountsService._account.next(account);
-          authService.signupAddress = '';
-          messageService.dismissAll();
-          resolve();
-        }
-      } catch (error) {
-        console.error('[GET] Account: ', error);
-        storageService.clear();
-        messageService.error(error, 'Private key is incorrect');
-        reject();
+      const account = await accountsService.getAccount(address);
+      if (account) {
+        storageService.set('secret', privateKey);
+        storageService.set('account', account);
+        accountsService.account.next(account);
+        authService.signupAddress = '';
+        messageService.dismissAll();
       }
-    });
+    } catch (error) {
+      storageService.clear();
+      messageService.error(error, 'Private key is incorrect');
+    }
   };
   const inputHandler = (type, value) => {
     if (type === 'privateKey') {

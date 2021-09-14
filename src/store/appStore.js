@@ -1,14 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 export class AppStore {
-  auth = true;
+  auth = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   setAuth(bool) {
-    this.auth = bool;
+    runInAction(() => {
+      this.auth = bool;
+    });
   }
 
   resetStore = () => {

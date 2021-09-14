@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect, Switch } from 'react-router';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
@@ -6,12 +6,8 @@ import { observer } from 'mobx-react-lite';
 import RouteWithSubRoutes from './RouteWithSubRoutes';
 import appStore from '../../store/appStore';
 
-const RenderRoutes = observer(({ privateR, publicR }) => {
-  useEffect(() => {
-    console.log('appStore.auth', appStore.auth);
-  }, [appStore.auth]);
-
-  return appStore.auth ? (
+const RenderRoutes = observer(({ privateR, publicR }) =>
+  appStore.auth ? (
     <Switch>
       {privateR.map((route) => (
         <RouteWithSubRoutes key={route.key} {...route} />
@@ -25,8 +21,8 @@ const RenderRoutes = observer(({ privateR, publicR }) => {
       ))}
       <Redirect to="/dashboard/login" />
     </Switch>
-  );
-});
+  ),
+);
 
 RenderRoutes.propTypes = {
   privateR: PropTypes.array,

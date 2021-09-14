@@ -1,16 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
 import Footer from '../Footer';
 import appStore from '../../store/appStore';
 import Header from '../Header';
 
 const Layout = (props) => {
   const { children } = props;
-  const history = useHistory();
-  useEffect(() => {
-    console.log(history.location.pathname);
-  }, []);
 
   return (
     <div className="layout">

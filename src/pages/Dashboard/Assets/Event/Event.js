@@ -4,7 +4,6 @@ import appStore from '../../../../store/appStore';
 
 const Event = () => {
   const params = useParams();
-  console.log(params);
   return (
     <div>
       <h1>Event{params.eventId}</h1>
