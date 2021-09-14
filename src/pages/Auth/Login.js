@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import messageService from '../../services/message.service';
 import storageService from '../../services/storage.service';
-import accountsService from '../../services/accounts.service';
+import { AccountsService, getAccount } from '../../services/accounts.service';
 import loginLogoImg from '../../assets/raster/login-logo.png';
 import authService from '../../services/auth.service';
 
@@ -24,18 +24,18 @@ const Login = observer(() => {
   //     }
   //   });
   // };
-  const getAccount = async (e) => {
+  const getAccountHandler = async (e) => {
     e.preventDefault();
     try {
       const address = authService.privateKeyToAccount(privateKey);
       storageService.set('secret', privateKey);
       storageService.set('token', authService.getToken());
 
-      const account = await accountsService.getAccount(address);
+      const account = await getAccount(address);
       if (account) {
         storageService.set('secret', privateKey);
         storageService.set('account', account);
-        accountsService.account.next(account);
+        AccountsService(account);
         authService.signupAddress = '';
         messageService.dismissAll();
       }
@@ -62,7 +62,7 @@ const Login = observer(() => {
       <form
         className="form"
         style={{ maxWidth: 624 }}
-        onSubmit={(e) => getAccount(e)}
+        onSubmit={(e) => getAccountHandler(e)}
       >
         <label>
           <h1>Your private key</h1>

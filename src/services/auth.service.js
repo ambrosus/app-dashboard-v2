@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import storageService from './storage.service';
 import * as moment from 'moment-timezone';
-import accountsService from './accounts.service';
+import { AccountsService, getAccount } from './accounts.service';
 import { environment } from '../environments/environment';
 import * as AmbrosusSDK from 'ambrosus-javascript-sdk';
 import Web3 from 'web3';
@@ -75,13 +75,13 @@ class AuthService {
       storageService.set('secret', privateKey);
       storageService.set('token', this.getToken());
 
-      const account = await accountsService.getAccount(address);
+      const account = await getAccount(address);
 
       console.log('[GET] Account: ', account);
       storageService.set('account', account);
-      accountsService._account.next(account);
+      AccountsService(account);
       this.signupAddress = '';
-      alert("this.router.navigate(['/dashboard/assets']);");
+
       // this.router.navigate(['/dashboard/assets']);
 
       return account;
