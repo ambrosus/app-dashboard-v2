@@ -38,7 +38,7 @@ try {
   prod = false;
   dev = false;
   ambrosus = false;
-  throw error;
+  throw new Error('Invalid network');
 } finally {
   core = window.location.hostname.split('.');
 
