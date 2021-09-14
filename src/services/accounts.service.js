@@ -8,14 +8,14 @@ import { fetchAPI } from '../api/fetchAPI';
 import Web3 from 'web3';
 
 class AccountsService {
-  _account = new BehaviorSubject({});
+  account = new BehaviorSubject({});
   sdk;
   api;
   url;
 
   constructor() {
     const account = storageService.get('account') || {};
-    this._account.next(account);
+    this.account.next(account);
     this.sdk = new AmbrosusSDK({ Web3 });
     this.api = environment.api;
     this.url = this.api.extended;
