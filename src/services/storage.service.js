@@ -1,39 +1,24 @@
-/*eslint-disable*/
+const namespace = 'amb_';
+const storage = sessionStorage;
 
-class StorageService {
-  namespace = 'amb_';
-  storage = sessionStorage;
+export const storageSet = (key, value) =>
+  storage.setItem(`${namespace}${key}`, JSON.stringify(value));
 
-  constructor() {}
-
-  // localStorage wrapper
-  set(key, value) {
-    this.storage.setItem(`${this.namespace}${key}`, JSON.stringify(value));
+export const storagePut = (key, value) => {
+  if (!storage.get(key)) {
+    return storage.setItem(`${namespace}${key}`, JSON.stringify(value));
   }
+  return false;
+};
 
-  put(key, value) {
-    if (!this.get(key)) {
-      this.storage.setItem(`${this.namespace}${key}`, JSON.stringify(value));
-    } else {
-      return false;
-    }
+export const storageGet = (key) => {
+  try {
+    return JSON.parse(storage.getItem(`${namespace}${key}`));
+  } catch (err) {
+    return storage.getItem(`${namespace}${key}`);
   }
+};
 
-  get(key) {
-    try {
-      return JSON.parse(this.storage.getItem(`${this.namespace}${key}`));
-    } catch (err) {
-      return this.storage.getItem(`${this.namespace}${key}`);
-    }
-  }
+export const storageDelete = (key) => storage.removeItem(`${namespace}${key}`);
 
-  delete(key) {
-    this.storage.removeItem(`${this.namespace}${key}`);
-  }
-
-  clear() {
-    this.storage.clear();
-  }
-}
-const storageService = new StorageService();
-export default storageService;
+export const storageClear = () => storage.clear();

@@ -1,9 +1,10 @@
-import storageService from './storage.service';
 import { environment } from '../environments/environment';
 import { fetchAPI } from '../api/fetchAPI';
+import { storageGet } from './storage.service';
+
 const url = environment.api.extended;
 export const AccountsService = (acc) => {
-  const account = storageService.get('account') || acc;
+  const account = storageGet('account') || acc;
   return account;
 };
 
@@ -17,7 +18,7 @@ export const getAccounts = async (next = '') => {
 };
 
 export const getAccount = async (address) => {
-  const tok = storageService.get('token');
+  const tok = storageGet('token');
   const account = await fetchAPI(url, `/account/${address}`, {
     headers: {
       Accept: 'application/json',

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import messageService from '../../services/message.service';
-import storageService from '../../services/storage.service';
 import { AccountsService, getAccount } from '../../services/accounts.service';
 import loginLogoImg from '../../assets/raster/login-logo.png';
-import authService from '../../services/auth.service';
+import { storageClear, storageSet } from '../../services/storage.service';
+import { getToken, privateKeyToAccount } from '../../services/auth.service';
+import { messageServiceError } from '../../services/message.service';
 
 const Login = observer(() => {
   const [privateKey, setPrivateKey] = useState('');
@@ -27,21 +27,19 @@ const Login = observer(() => {
   const getAccountHandler = async (e) => {
     e.preventDefault();
     try {
-      const address = authService.privateKeyToAccount(privateKey);
-      storageService.set('secret', privateKey);
-      storageService.set('token', authService.getToken());
+      const address = privateKeyToAccount(privateKey);
+      storageSet('secret', privateKey);
+      storageSet('token', getToken());
 
       const account = await getAccount(address);
       if (account) {
-        storageService.set('secret', privateKey);
-        storageService.set('account', account);
+        storageSet('secret', privateKey);
+        storageSet('account', account);
         AccountsService(account);
-        authService.signupAddress = '';
-        messageService.dismissAll();
       }
     } catch (error) {
-      storageService.clear();
-      messageService.error(error, 'Private key is incorrect');
+      storageClear();
+      messageServiceError(error, 'Private key is incorrect');
     }
   };
   const inputHandler = (type, value) => {
