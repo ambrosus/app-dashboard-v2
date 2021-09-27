@@ -6,11 +6,12 @@ import Asset from './pages/Dashboard/Assets/Asset';
 import Event from './pages/Dashboard/Assets/Event';
 import Organization from './pages/Dashboard/Organization';
 
-const privateRoutes = [
+const routes = [
   {
     path: '/dashboard/assets',
     key: 'assets',
     exact: true,
+    isPrivate: true,
     component: () => (
       <Layout>
         <Assets />
@@ -21,6 +22,7 @@ const privateRoutes = [
     path: '/dashboard/assets/:assetId',
     key: 'asset',
     exact: true,
+    isPrivate: true,
     component: () => (
       <Layout>
         <Asset />
@@ -31,6 +33,7 @@ const privateRoutes = [
     path: '/dashboard/assets/:assetId/events/:eventId',
     key: 'event',
     exact: true,
+    isPrivate: true,
     component: () => (
       <Layout>
         <Event />
@@ -41,44 +44,48 @@ const privateRoutes = [
     path: '/dashboard/organization',
     key: 'organization',
     exact: true,
+    isPrivate: true,
     component: () => (
       <Layout>
         <Organization />
       </Layout>
     ),
   },
-];
-const publicRoutes = [
   {
     path: '/dashboard/login',
     key: 'login',
     exact: true,
+    isPrivate: false,
     component: () => <Login />,
   },
   {
     path: '/dashboard/signup',
     key: 'signup',
     exact: true,
+    isPrivate: false,
     component: () => <Signup />,
   },
   {
     path: '/dashboard/request',
     key: 'request',
     exact: true,
+    isPrivate: false,
     component: () => <Request />,
   },
   {
     path: '/dashboard/signup/generated-key',
     key: 'generated-key',
     exact: true,
+    isPrivate: false,
     component: () => <GeneratedKey />,
   },
   {
     path: '/dashboard/signup/own-key',
     key: 'own-key',
     exact: true,
+    isPrivate: false,
     component: () => <OwnKey />,
   },
 ];
 
-export { publicRoutes, privateRoutes };
+export default routes;

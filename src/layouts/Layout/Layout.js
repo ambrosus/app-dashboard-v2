@@ -9,11 +9,11 @@ const Layout = (props) => {
 
   return (
     <div className="layout">
-      {!appStore.auth ? <Header /> : null}
+      {appStore.auth ? <Header /> : null}
       <div className="content">
         <div className="page">{children}</div>
       </div>
-      {!appStore.auth ? <Footer /> : null}
+      {appStore.auth ? <Footer /> : null}
     </div>
   );
 };

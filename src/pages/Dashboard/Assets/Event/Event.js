@@ -1,8 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import appStore from '../../../../store/appStore';
 
 const Event = () => {
+  const history = useHistory();
+
   const params = useParams();
   return (
     <div>
@@ -10,7 +12,8 @@ const Event = () => {
       <button
         type="button"
         onClick={() => {
-          appStore.setAuth(false);
+          appStore.logout();
+          history.push('/dashboard/login');
         }}
       >
         <h1>SET AUTH</h1>

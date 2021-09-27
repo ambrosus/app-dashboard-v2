@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useHistory } from 'react-router';
+
 import { AccountsService, getAccount } from '../../services/accounts.service';
 import loginLogoImg from '../../assets/raster/login-logo.png';
-import { storageClear, storageSet } from '../../services/storage.service';
+import {
+  storageClear,
+  storageGet,
+  storageSet,
+} from '../../services/storage.service';
 import { getToken, privateKeyToAccount } from '../../services/auth.service';
 import { messageServiceError } from '../../services/message.service';
+import appStore from '../../store/appStore';
 
 const Login = observer(() => {
   const [privateKey, setPrivateKey] = useState('');
+  const history = useHistory();
   // const [isAccount, setIsAccount] = useState(null);
   // const [email, setEmail] = useState('');
   // const [password, setPassword] = useState(null);
@@ -33,9 +41,15 @@ const Login = observer(() => {
 
       const account = await getAccount(address);
       if (account) {
+        AccountsService(account);
         storageSet('secret', privateKey);
         storageSet('account', account);
-        AccountsService(account);
+        setTimeout(() => {
+          if (typeof storageGet('account')) {
+            appStore.login();
+            history.push('/dashboard/assets');
+          }
+        }, 200);
       }
     } catch (error) {
       storageClear();
