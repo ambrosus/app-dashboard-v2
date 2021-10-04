@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
 
 import { useDetectOutsideClick } from '../../utils/useDetectOutsideClick';
 import Input from '../../components/Input';
@@ -98,8 +99,7 @@ const Header = () => {
     <div className="header__setting">
       <div
         className="header__setting--search"
-        onClick={(e) => {
-          e.stopPropagation();
+        onClick={() => {
           setIsActiveSlideSearch(true);
         }}
         role="presentation"
@@ -109,8 +109,7 @@ const Header = () => {
           <ReactSVG
             src={searchIcon}
             wrapper="span"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={() => {
               setIsActiveSlideSearch(true);
             }}
           />
@@ -126,7 +125,10 @@ const Header = () => {
       </div>
       <div
         className="header__setting--profile"
-        onClick={() => setIsActive(!isActive)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsActive(!isActive);
+        }}
         role="presentation"
       >
         {' '}
@@ -134,7 +136,11 @@ const Header = () => {
       </div>
       <div
         ref={dropdownRef}
-        className={`dropdown-profile-menu ${isActive ? 'active' : 'inactive'}`}
+        className={classNames(
+          'dropdown-profile-menu',
+          { active: isActive },
+          { inactive: !isActive },
+        )}
       >
         <div>My name</div>
         <hr />
