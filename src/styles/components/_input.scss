@@ -1,0 +1,59 @@
+.default {
+  position: absolute;
+  width: 200px;
+  max-height: 11px;
+  min-height: 17px;
+  right: 0px;
+  bottom: -0px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  background: #F7F7FD;
+  border-radius: 12px;
+  border-style: none;
+  border: solid 8px transparent;
+  transition: all 0.5s linear;
+
+}
+
+.input {
+  transition: all 0.5s linear;
+  appearance: none;
+  width: calc(90% - 12px);
+  height: auto;
+  line-height: 1.5;
+  outline: 0;
+
+  font-size: 14px;
+  color: black;
+  background: #F7F7FD;
+  border: 0;
+
+  &::placeholder {
+    color: #bbb;
+  }
+
+  // disable the native style from IE
+  &::-ms-expand,
+  &::-ms-clear {
+    display: none;
+  }
+}
+
+.icon {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  width: 10%;
+  max-width: 48px;
+  height: 100%;
+background-color: #F7F7FD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > svg {
+    display: block;
+  }
+}

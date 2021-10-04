@@ -45,7 +45,7 @@ const Login = observer(() => {
         storageSet('secret', privateKey);
         storageSet('account', account);
         setTimeout(() => {
-          if (typeof storageGet('account')) {
+          if (storageGet('account') !== null) {
             appStore.login();
             history.push('/dashboard/assets');
           }

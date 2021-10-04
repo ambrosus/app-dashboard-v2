@@ -1,19 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { storageClear, storageGet } from '../services/storage.service';
+import { storageClear } from '../services/storage.service';
 
 export class AppStore {
   auth = false;
 
   constructor() {
     makeAutoObservable(this);
-  }
-
-  isAuth() {
-    setTimeout(() => {
-      runInAction(() => {
-        this.auth = typeof storageGet('account') === 'object';
-      });
-    }, 100);
   }
 
   login() {

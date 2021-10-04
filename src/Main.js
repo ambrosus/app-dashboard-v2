@@ -1,14 +1,14 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
+import { BrowserRouter } from 'react-router-dom';
+
 import RenderRoutes from './components/RenderRoutes';
-import Layout from './layouts/Layout';
-import routes from './routes';
 import './styles/Main.scss';
 
 const Main = observer(() => (
-  <Layout>
-    <RenderRoutes routes={routes} />
-  </Layout>
+  <BrowserRouter>
+    <RenderRoutes />
+  </BrowserRouter>
 ));
 
 export default Main;

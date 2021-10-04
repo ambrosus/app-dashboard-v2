@@ -1,24 +1,120 @@
-import React from 'react';
-import { useHistory } from 'react-router';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { ReactSVG } from 'react-svg';
 
-import appStore from '../../../store/appStore';
+import Button from '../../../components/Button';
+import borderOutlet from '../../../assets/svg/border_outer.svg';
+import datePickerIcon from '../../../assets/svg/date-picker.svg';
+import placePickerIcon from '../../../assets/svg/place-picker.svg';
+import AssetItem from './components/AssetItem';
 
 const Assets = observer(() => {
-  const history = useHistory();
+  const [selectedPeriodBtn, setSelectedPeriodBtn] = useState('week');
+  const setSelectedPeriodBtnHandler = (period) => {
+    setSelectedPeriodBtn(period);
+  };
+  const packagingHandler = () => {
+    console.log('Packaging');
+  };
+  const createAssetHandler = () => {
+    console.log('Create Asset');
+  };
 
   return (
-    <div>
-      <h1>Assets</h1>
-      <button
-        type="button"
-        onClick={() => {
-          appStore.logout();
-          history.push('/dashboard/login');
-        }}
-      >
-        <h1>logout</h1>
-      </button>
+    <div className="dashboard-container">
+      <div className="assets-options">
+        <div className="assets-options__title">My Assets</div>
+        <div className="assets-options__buttons">
+          <Button disabled type="secondary" onclick={packagingHandler}>
+            <p>Packaging</p>
+          </Button>
+          <Button type="primary" onclick={createAssetHandler}>
+            <p>Create Asset</p>
+          </Button>
+        </div>
+      </div>
+      <div className="assets-sorting">
+        <div className="assets-sorting__selects">
+          {true && (
+            <>
+              <div>Select all</div>
+              <div>Unselect all</div>
+            </>
+          )}
+        </div>
+        <div className="assets-sorting__period-pick">
+          <Button
+            buttonStyles={{
+              background: selectedPeriodBtn === 'day' ? '#9198BB' : '#F7F7FD',
+              color: selectedPeriodBtn === 'day' ? 'white' : '#9198BB',
+            }}
+            type="secondary"
+            onclick={() => setSelectedPeriodBtnHandler('day')}
+          >
+            <p>Day</p>
+          </Button>
+          <Button
+            buttonStyles={{
+              background: selectedPeriodBtn === 'week' ? '#9198BB' : '#F7F7FD',
+              color: selectedPeriodBtn === 'week' ? 'white' : '#9198BB',
+            }}
+            type="secondary"
+            onclick={() => setSelectedPeriodBtnHandler('week')}
+          >
+            <p>Week</p>
+          </Button>
+          <Button
+            buttonStyles={{
+              background: selectedPeriodBtn === 'month' ? '#9198BB' : '#F7F7FD',
+              color: selectedPeriodBtn === 'month' ? 'white' : '#9198BB',
+            }}
+            type="secondary"
+            onclick={() => setSelectedPeriodBtnHandler('month')}
+          >
+            <p>Month</p>
+          </Button>
+          <Button
+            buttonStyles={{
+              background: selectedPeriodBtn === 'year' ? '#9198BB' : '#F7F7FD',
+              color: selectedPeriodBtn === 'year' ? 'white' : '#9198BB',
+            }}
+            type="secondary"
+            priority="icon-btn"
+            onclick={() => setSelectedPeriodBtnHandler('year')}
+          >
+            <p>Year</p>
+          </Button>
+        </div>
+        <div className="assets-sorting__advanced-sorting">
+          <Button
+            buttonStyles={{
+              background: '#F7F7FD',
+            }}
+            type="secondary"
+          >
+            <ReactSVG src={borderOutlet} wrapper="span" />
+          </Button>
+          <Button
+            buttonStyles={{
+              background: '#F7F7FD',
+            }}
+            type="secondary"
+          >
+            <ReactSVG src={datePickerIcon} wrapper="span" />
+          </Button>
+          <Button
+            buttonStyles={{
+              background: '#F7F7FD',
+            }}
+            type="secondary"
+          >
+            <ReactSVG src={placePickerIcon} wrapper="span" />
+          </Button>
+        </div>
+      </div>
+      <div className="assets-list">
+        <AssetItem />
+      </div>
     </div>
   );
 });
