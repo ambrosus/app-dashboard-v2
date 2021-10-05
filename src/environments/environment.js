@@ -1,4 +1,4 @@
-let core: any = '';
+let core = '';
 let test = false;
 let prod = false;
 let dev = false;

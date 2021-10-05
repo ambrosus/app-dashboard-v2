@@ -7,6 +7,7 @@ import borderOutlet from '../../../assets/svg/border_outer.svg';
 import datePickerIcon from '../../../assets/svg/date-picker.svg';
 import placePickerIcon from '../../../assets/svg/place-picker.svg';
 import AssetItem from './components/AssetItem';
+import MCreateAsset from '../../../components/Modal/modals/MCreateAsset/MCreateAsset';
 
 const Assets = observer(() => {
   const [selectedPeriodBtn, setSelectedPeriodBtn] = useState('week');
@@ -28,9 +29,11 @@ const Assets = observer(() => {
           <Button disabled type="secondary" onclick={packagingHandler}>
             <p>Packaging</p>
           </Button>
-          <Button type="primary" onclick={createAssetHandler}>
-            <p>Create Asset</p>
-          </Button>
+          <MCreateAsset>
+            <Button type="primary" onclick={createAssetHandler}>
+              <p>Create Asset</p>
+            </Button>
+          </MCreateAsset>
         </div>
       </div>
       <div className="assets-sorting">

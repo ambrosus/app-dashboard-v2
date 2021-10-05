@@ -1,0 +1,138 @@
+.form {
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+
+    .asset-type {
+      display: flex;
+      align-items: center;
+      flex-basis: 50%;
+    }
+
+    .asset-switch {
+      display: flex;
+      flex-direction: column;
+
+      .react-switch-checkbox {
+        width: 0px;
+        height: 0px;
+
+        background: #F7F7FD;
+        border-radius: 90px;
+        visibility: hidden;
+      }
+
+      .react-switch-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0;
+        width: 290px;
+        height: 48px;
+        border-radius: 90px;
+        background: #F7F7FD;
+        position: relative;
+        transition: background-color 0.2s;
+
+        .react-switch-button-true {
+          flex-basis: 50%;
+          justify-content: center;
+          z-index: 5;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+
+          color: #9198BB;
+        }
+
+        .react-switch-button-false {
+          flex-basis: 50%;
+          justify-content: center;
+          z-index: 5;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+
+          color: #9198BB;
+        }
+      }
+
+      .react-switch-label .react-switch-button {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 2px;
+        transition: 0.2s;
+        box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+        width: 138px;
+        z-index: 1;
+        height: 40px;
+
+        background: #FFFFFF;
+        border-radius: 90px;
+      }
+
+
+      .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+        left: calc(100% - 2px);
+        transform: translateX(-100%);
+      }
+
+      .react-switch-label:active .react-switch-button {
+        width: 60px;
+      }
+
+    }
+  }
+
+  .label, label {
+    font-family: Rubik;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-feature-settings: 'liga' off;
+    padding-bottom: 10px;
+    color: #333333;
+  }
+}
+
+.select {
+  display: flex;
+  flex-direction: column;
+  max-width: 290px;
+
+
+  select {
+    height: 48px;
+    min-width: 290px;
+    background: #F7F7FD;
+    border-radius: 12px;
+    padding: 10px;
+    border: none;
+    outline: none;
+  }
+
+}
+
+.spacer {
+  height: 0;
+  margin-bottom: 22px;
+}

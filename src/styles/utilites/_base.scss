@@ -1,9 +1,16 @@
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow-y: auto;
+  font-family: Rubik;
+}
+
 a {
   text-decoration: none;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Rubik;
+.no-scroll {
+  overflow: hidden;
 }

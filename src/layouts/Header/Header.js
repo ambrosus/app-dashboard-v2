@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import classNames from 'classnames';
 
 import { useDetectOutsideClick } from '../../utils/useDetectOutsideClick';
-import Input from '../../components/Input';
+import Search from '../../components/Search';
 
 import logoIcon from '../../assets/svg/logo.svg';
 import searchIcon from '../../assets/svg/search.svg';
@@ -114,12 +114,12 @@ const Header = () => {
             }}
           />
         ) : (
-          <Input
+          <Search
             inputFocusOut={isActiveSlideSearch}
             inputFocusOutHandler={setIsActiveSlideSearch}
             type="text"
             icon={searchIcon}
-            placeholder="You are looking at placeholder"
+            placeholder="Type name, id or date"
           />
         )}
       </div>

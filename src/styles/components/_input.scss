@@ -1,59 +1,64 @@
-.default {
-  position: absolute;
-  width: 200px;
-  max-height: 11px;
-  min-height: 17px;
-  right: 0px;
-  bottom: -0px;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: flex-start;
-  background: #F7F7FD;
-  border-radius: 12px;
-  border-style: none;
-  border: solid 8px transparent;
-  transition: all 0.5s linear;
-
-}
 
 .input {
-  transition: all 0.5s linear;
-  appearance: none;
-  width: calc(90% - 12px);
-  height: auto;
-  line-height: 1.5;
-  outline: 0;
-
-  font-size: 14px;
-  color: black;
-  background: #F7F7FD;
-  border: 0;
-
-  &::placeholder {
-    color: #bbb;
+  position: relative;
+  flex-direction: column;
+  width: 100% !important;
+  &--label{
+    font-family: Rubik;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    display: flex;
+    align-items: center;
+    font-feature-settings: 'liga' off;
+    padding-bottom: 10px;
+    color: #333333;
   }
-
-  // disable the native style from IE
-  &::-ms-expand,
-  &::-ms-clear {
-    display: none;
+  input:focus-visible{
+    border: none !important;
+    outline: none !important;
+  }
+  input{
+    border: 0px solid black !important;
+    outline: none !important;
   }
 }
+.input input[type="text"],
+.input input[type="email"],
+.input input[type="password"] {
+  appearance: none !important;
+  height: 48px !important;
+  width: 98.5% !important;
+  background: #F7F7FD !important;
+  border-radius: 12px !important;
+  padding-left: 12px !important;
+  font-size: 16px !important;
+  color: #333333 !important;
+  transition-property: border, color !important;
+  transition-duration: 400ms !important;
+}
+.input input[type="text"]:focus,
+.input input[type="email"]:focus,
+.input input[type="password"]:focus {
+  color: #333333 !important;
+}
+.input input[type="text"]::placeholder,
+.input input[type="email"]::placeholder,
+.input input[type="password"]::placeholder {
+  color: #BFC9E0 !important;
+}
 
-.icon {
-  position: absolute;
-  top: 0;
-  right: -2px;
-  width: 10%;
-  max-width: 48px;
-  height: 100%;
-background-color: #F7F7FD;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  > svg {
-    display: block;
-  }
+.input .iconLeft,
+.input .iconRight {
+  position: absolute !important;
+}
+.input .iconLeft {
+  top: 8px !important;
+  left: 8px !important;
+}
+.input .iconRight {
+  top: 40px !important;
+  right: 10px !important;
+  cursor: pointer !important;
 }

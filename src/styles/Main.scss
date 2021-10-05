@@ -11,8 +11,11 @@
 
 // Components
 @import "./components/tooltip";
-@import "./components/input";
+@import "components/search-input";
+@import "components/form";
+@import "components/input";
 @import "./components/button";
+@import "./components/modal";
 
 // Layout
 @import "./layout/layout";
