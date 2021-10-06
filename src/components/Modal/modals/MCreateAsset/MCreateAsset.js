@@ -9,12 +9,16 @@ import MHeader from '../components/MHeader/MHeader';
 import Input from '../../../Input';
 import { Select } from '../../../Select/Select';
 import { SwitchToggle } from '../../../SwitchToggle/SwitchToggle';
+import Textarea from '../../../Textarea/Textarea';
+import FileInput from '../../../FileInput';
 
 const MCreateAsset = ({ children }) => {
   const [modalVisible, setModalVisible] = useState();
   const [asset, setAsset] = useState([]);
   const [tab, setTab] = useState('form');
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control, unregister, setValue, watch } =
+    useForm();
+
   const onSubmit = (data) => setAsset(data);
   return (
     <>
@@ -29,21 +33,36 @@ const MCreateAsset = ({ children }) => {
               <div>
                 <div className="spacer" />
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                  <Input label="Name" register={register} required />
+                  <Input
+                    name="assetName"
+                    label="Name*"
+                    placeholder="Asset name"
+                    register={register}
+                    required
+                    type="text"
+                  />
                   <div className="spacer" />
                   <div className="flex-row">
                     <div className="asset-type">
                       {' '}
-                      <Select
-                        label="Asset Type"
-                        {...register('assetType')}
-                        required
+                      <Controller
+                        control={control}
+                        defaultValue=""
+                        name="assetType"
+                        render={({ field }) => (
+                          <Select
+                            label="Asset Type*"
+                            {...register('assetType')}
+                            required
+                          />
+                        )}
                       />
                     </div>
                     <div className="asset-switch">
                       {' '}
                       <Controller
                         control={control}
+                        defaultValue={false}
                         name="accessLevel"
                         render={({ field }) => (
                           <SwitchToggle
@@ -58,12 +77,50 @@ const MCreateAsset = ({ children }) => {
                       />
                     </div>
                   </div>
-
+                  <div className="spacer" />
+                  <Controller
+                    control={control}
+                    defaultValue=""
+                    name="description"
+                    render={({ field }) => (
+                      <Textarea
+                        placeholder="Asset description"
+                        onchange={(e) => field.onChange(e.target.value)}
+                      />
+                    )}
+                  />
+                  <div className="hr" />
+                  <div className="bundle-size">
+                    Media bundle size{' '}
+                    <span className="bundle-size__number">
+                      &nbsp;4.2 Mb&nbsp;
+                    </span>{' '}
+                    used from{' '}
+                    <span className="bundle-size__number">
+                      &nbsp;16 Mb&nbsp;
+                    </span>
+                  </div>
+                  <Controller
+                    control={control}
+                    render={({ field }) => (
+                      <FileInput
+                        accept="image/png, image/jpg, image/jpeg"
+                        multiple
+                        name="assetImages"
+                        label="Asset Images"
+                        mode="append"
+                        register={register}
+                        unregister={unregister}
+                        setValue={setValue}
+                        watch={watch}
+                      />
+                    )}
+                  />
                   <input type="submit" />
                 </form>
               </div>
             ) : (
-              <div>{JSON.stringify(asset, 4, null)}</div>
+              <pre>{JSON.stringify(asset, null, 4)}</pre>
             )}
           </div>
         </div>

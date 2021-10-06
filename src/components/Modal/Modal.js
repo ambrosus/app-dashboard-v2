@@ -19,20 +19,24 @@ const Modal = ({ isOpen, onClose, className, ...props }) => {
 
   return ReactDOM.createPortal(
     isOpen ? (
-      <div className="modal-overlay">
-        <div role="presentation" className="modal-background" />
-        <div className="modal-container">
-          <ReactSVG
-            className="close-modal"
-            onClick={onClose}
-            src={closeIcon}
-            wrapper="span"
-          />
-          <div data-scroller className="scroller">
-            {props.children}
+      <>
+        <div role="presentation" className="opacity-background" />
+        <div role="presentation" className="modal-background">
+          <div className="modal-overlay">
+            <div className="modal-container">
+              <ReactSVG
+                className="close-modal"
+                onClick={onClose}
+                src={closeIcon}
+                wrapper="span"
+              />
+              <div data-scroller className="scroller">
+                {props.children}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     ) : (
       <></>
     ),
@@ -42,7 +46,7 @@ const Modal = ({ isOpen, onClose, className, ...props }) => {
 
 Modal.propTypes = {
   isOpen: PropTypes.bool,
-  onClose: PropTypes.bool,
+  onClose: PropTypes.func,
   className: PropTypes.any,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

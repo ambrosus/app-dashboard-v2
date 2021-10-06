@@ -1,0 +1,91 @@
+$disabledColor: #999999;
+$boxshadowColor: #9198BB;
+$checkbox: '✔';
+
+.checkbox {
+  position: relative;
+  padding-left: 0.35rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+
+  & * {
+    pointer-events: none;
+
+  }
+
+  & input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    width: 1.26rem;
+    height: 1.26rem;
+    top: -10px;
+    background-color: #9198BB;
+    left: -3px;
+  }
+
+  & label {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    font-feature-settings: 'liga' off;
+
+    color: #BFC9E0;
+    /*  -webkit-touch-callout: none; // iOS Safari*/
+    -webkit-user-select: none; // Safari
+    -moz-user-select: none; // Old versions of Firefox
+    -ms-user-select: none; // Internet Explorer/Edge (old)
+    user-select: none; // Non-prefixed version  Chrome, Edge, Opera and Firefox
+  }
+
+  & span {
+    background-color: #BFC9E0;
+    position: relative;
+    top: -5px;
+    left: -0.35rem;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    border-radius: 0.2rem;
+  }
+
+  & input:checked ~ span::after {
+    content: $checkbox;
+    position: relative;
+    top: 1px;
+    left: .2rem;
+  }
+
+  & input:focus {
+    outline-color: transparent;
+  }
+
+  & input:focus ~ span {
+    box-shadow: 1px 1px $boxshadowColor;
+  }
+
+  & input:focus ~ label {
+    text-shadow: 0px 1px $boxshadowColor;
+  }
+
+  & input:disabled ~ span {
+    box-shadow: none;
+    color: $disabledColor;
+    border-color: #BFC9E0;
+
+  }
+
+  & input:disabled ~ label {
+    color: $disabledColor;
+  }
+}

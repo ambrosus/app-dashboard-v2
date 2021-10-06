@@ -1,8 +1,7 @@
 /*eslint-disable*/
 import React from 'react';
-import visibility from '../../assets/svg/visibility.svg';
-import visibilityOff from '../../assets/svg/visibility_off.svg';
-import { ReactSVG } from 'react-svg';
+import { VisibilityOffSvg } from './VisibilityOffSvg';
+import { VisibilitySvg } from './VisibilitySvg';
 export const SwitchToggle = (props) => {
   return (
     <>
@@ -10,26 +9,38 @@ export const SwitchToggle = (props) => {
         {props.name}
       </div>
       <input
-        checked={props.isOn}
+        checked={props.isOn ? props.isOn : false}
         onChange={props.handleToggle}
         type="checkbox"
-        id={'react-switch-new'}
-        className="react-switch-checkbox"
+        id={'switch-new'}
+        className="switch-checkbox"
       />
       <label
         style={{ background: props.isOn && props.onColor }}
-        className="react-switch-label"
-        htmlFor={'react-switch-new'}
+        className="switch-label"
+        htmlFor={'switch-new'}
       >
-        <div className="react-switch-button-true">
+        <div
+          style={{
+            color: props.isOn ? '#BFC9E0' : '#9198BB',
+          }}
+          className="switch-button-true"
+        >
           {' '}
-          <ReactSVG src={visibility} wrapper="span" /> Public
+          <VisibilitySvg fill={props.isOn ? '#BFC9E0' : '#9198BB'} />
+          <span>&nbsp;Public</span>
         </div>
-        <div className="react-switch-button-false">
+        <div
+          style={{
+            color: !props.isOn ? '#BFC9E0' : '#9198BB',
+          }}
+          className="switch-button-false"
+        >
           {' '}
-          <ReactSVG src={visibilityOff} wrapper="span" /> Ptivate
+          <VisibilityOffSvg fill={!props.isOn ? '#BFC9E0' : '#9198BB'} />
+          <span>&nbsp;Private</span>
         </div>
-        <span className="react-switch-button" />
+        <span className="switch-button" />
       </label>
     </>
   );
