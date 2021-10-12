@@ -1,5 +1,5 @@
 /*eslint-disable*/
-let core = '';
+let core = 'https://vitalii427-hermes.ambrosus-test.io';
 let test = false;
 let prod = true;
 let dev = false;
