@@ -1,8 +1,10 @@
 /*eslint-disable*/
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
+import { observer } from 'mobx-react-lite';
+import { ReactSVG } from 'react-svg';
 
 import Modal from '../../Modal';
 import MHeader from '../components/MHeader/MHeader';
@@ -11,15 +13,38 @@ import { Select } from '../../../Select/Select';
 import { SwitchToggle } from '../../../SwitchToggle/SwitchToggle';
 import Textarea from '../../../Textarea/Textarea';
 import FileInput from '../../../FileInput';
+import appStore from '../../../../store/appStore';
+import Properties from '../../../../pages/Dashboard/Assets/components/Properties';
+import Identifiers from '../../../../pages/Dashboard/Assets/components/Identifiers';
+import Groups from '../../../../pages/Dashboard/Assets/components/Groups';
+import Button from '../../../../components/Button';
+import { useData } from '../../../../context/DataContext';
 
-const MCreateAsset = ({ children }) => {
+import addIcon from '../../../../assets/svg/add_circle.svg';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const MCreateAsset = observer(({ children }) => {
+  const { setValues, data } = useData();
   const [modalVisible, setModalVisible] = useState();
   const [asset, setAsset] = useState([]);
   const [tab, setTab] = useState('form');
+  const [groupsToggle, setGroupsToggle] = useState(false);
   const { register, handleSubmit, control, unregister, setValue, watch } =
-    useForm();
-
-  const onSubmit = (data) => setAsset(data);
+    useForm({
+      assetName: data.assetName,
+      assetType: data.assetType,
+      accessLevel: data.accessLevel,
+      description: data.description,
+      assetImages: data.assetImages,
+      coverImage: data.coverImage,
+    });
+  const onSubmit = (values) => {
+    setValues(values);
+    if (data) {
+      alert(JSON.stringify(data, null, 4));
+    }
+  };
   return (
     <>
       <div role="presentation" onClick={() => setModalVisible(true)}>
@@ -116,18 +141,56 @@ const MCreateAsset = ({ children }) => {
                       />
                     )}
                   />
-                  <input type="submit" />
+                  <div className="hr" />
+                  <Controller
+                    control={control}
+                    render={({ field }) => <Properties register={register} />}
+                  />
+                  <div className="spacer-10" />
+                  <div className="spacer-10" />
+                  {groupsToggle && (
+                    <div>
+                      <Groups />
+                    </div>
+                  )}
+                  <div className="spacer-15" />
+                  <div className="spacer-10" />
+                  <div
+                    className="add-group-btn"
+                    onClick={() => setGroupsToggle(!groupsToggle)}
+                  >
+                    <ReactSVG src={addIcon} wrapper="span" />
+                    <p>Add group</p>
+                  </div>
+                  <div className="hr" />
+                  <Identifiers />
+                  <div className="hr" />
+                  <div className="actions-btns">
+                    <div className="actions-btns__cancel">
+                      <Button
+                        type="secondary"
+                        onclick={() => setModalVisible(false)}
+                      >
+                        <p>Cancel</p>
+                      </Button>
+                    </div>
+                    <div className="actions-btns__submit">
+                      <Button buttonType="submit" type="primary">
+                        <p> Create Asset</p>
+                      </Button>
+                    </div>
+                  </div>
                 </form>
               </div>
             ) : (
-              <pre>{JSON.stringify(asset, null, 4)}</pre>
+              <pre>{JSON.stringify(appStore.newAsset, null, 4)}</pre>
             )}
           </div>
         </div>
       </Modal>
     </>
   );
-};
+});
 
 MCreateAsset.propTypes = {
   children: PropTypes.oneOfType([

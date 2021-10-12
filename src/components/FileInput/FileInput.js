@@ -52,7 +52,9 @@ const FileInput = ({
     accept,
   });
   useEffect(() => {
-    register(name);
+    if (files && files.length > 0) {
+      register(name);
+    }
     return () => {
       unregister(name);
     };

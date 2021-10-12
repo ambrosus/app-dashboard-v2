@@ -1,11 +1,31 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { storageClear } from '../services/storage.service';
+import { getAssets } from '../services/assets.service';
 
 export class AppStore {
   auth = false;
 
+  newAsset = [];
+
+  assets = [];
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  getStoreAssets() {
+    getAssets().then((assets) => {
+      runInAction(() => {
+        this.assets = assets;
+      });
+      console.log('this.assets', this.assets);
+    });
+  }
+
+  setNewAsset(assetData) {
+    runInAction(() => {
+      this.newAsset = assetData;
+    });
   }
 
   login() {

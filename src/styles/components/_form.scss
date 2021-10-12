@@ -129,12 +129,15 @@
     outline: none;
     border: 6px solid #F7F7FD;
   }
+
   option[value=''][disabled] {
     display: none;
   }
+
   .place_holder {
     color: #9198BB;
   }
+
   option {
     color: #000000;
   }
@@ -144,7 +147,18 @@
   height: 0;
   margin-bottom: 22px;
 }
-.hr{
+
+.spacer-10 {
+  height: 0;
+  padding-bottom: 10px;
+}
+
+.spacer-15 {
+  height: 0;
+  padding-bottom: 15px;
+}
+
+.hr {
   height: 1px;
   background: #BFC9E0;
   margin: 44px 0;

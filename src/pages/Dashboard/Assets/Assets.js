@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ReactSVG } from 'react-svg';
 
@@ -8,6 +8,7 @@ import datePickerIcon from '../../../assets/svg/date-picker.svg';
 import placePickerIcon from '../../../assets/svg/place-picker.svg';
 import AssetItem from './components/AssetItem';
 import MCreateAsset from '../../../components/Modal/modals/MCreateAsset/MCreateAsset';
+import appStore from '../../../store/appStore';
 
 const Assets = observer(() => {
   const [selectedPeriodBtn, setSelectedPeriodBtn] = useState('week');
@@ -20,6 +21,10 @@ const Assets = observer(() => {
   const createAssetHandler = () => {
     console.log('Create Asset');
   };
+  useEffect(async () => {
+    await appStore.getStoreAssets();
+    console.log('appStore.assets', appStore.assets);
+  }, []);
 
   return (
     <div className="dashboard-container">

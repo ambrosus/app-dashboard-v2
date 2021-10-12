@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 const Button = ({
   priority,
   type,
+  buttonType,
   children,
   disabled,
   onclick,
@@ -13,7 +14,8 @@ const Button = ({
   const cssClasses = className('btn', priority, type);
   return (
     <button
-      type="button"
+      /* eslint-disable-next-line */
+      type={!buttonType && 'button'}
       disabled={disabled && disabled}
       onClick={onclick && onclick}
       className={cssClasses && cssClasses}
@@ -29,6 +31,7 @@ Button.propTypes = {
   buttonStyles: PropTypes.object,
   priority: PropTypes.string,
   type: PropTypes.string,
+  buttonType: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

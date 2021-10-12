@@ -1,3 +1,4 @@
+/*eslint-disable*/
 let core = '';
 let test = false;
 let prod = true;
@@ -34,7 +35,7 @@ try {
 } catch (error) {}
 
 if (location.hostname === 'localhost' || location.hostname === 'herokuapp') {
-  core = 'https://internal-test.ambrosus-test.io';
+  core = 'https://vitalii427-hermes.ambrosus-test.io';
   dev = true;
   prod = false;
   ambrosus = true;

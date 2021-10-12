@@ -118,6 +118,7 @@
         left: -40px;
         visibility: hidden;
       }
+
       .remove-asset-select-btn {
         display: flex;
         align-items: center;
@@ -236,8 +237,52 @@
     }
   }
 }
+
 .selected-asset-active {
   box-shadow: 0px 4px 12px rgba(55, 29, 199, 0.15);
   border-radius: 12px;
   border: 2px solid #67728c !important;
+}
+
+.asset-create-properties-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+
+  .prop-name {
+    flex-basis: 50%;
+
+  }
+
+  .prop-description {
+    flex-basis: 50%;
+
+  }
+}
+
+.add-groups-container {
+  width: 100%;
+  border: 1px solid #BFC9E0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.prop-add-btn {
+  cursor: pointer;
+  flex-direction: row;
+  gap: 8px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  font-feature-settings: 'liga' off;
+
+  color: #9198BB;
+
 }

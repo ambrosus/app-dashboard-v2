@@ -12,6 +12,7 @@
   overflow: hidden;
   min-height: 32px;
   max-height: 54px;
+  padding: 0 25px;
   border-radius: 8px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -28,6 +29,7 @@
 
   &.secondary {
     background-color: $color-blue;
+    padding: 0 10px !important;
   }
 
   &.primary {
@@ -37,7 +39,7 @@
 
   //priority
   &.icon-btn {
-    padding: 7px !important;
+    padding: 6px !important;
   }
 
   &.outline {

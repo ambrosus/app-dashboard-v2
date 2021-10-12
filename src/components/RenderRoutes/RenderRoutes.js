@@ -12,7 +12,7 @@ import Event from '../../pages/Dashboard/Assets/Event';
 import Asset from '../../pages/Dashboard/Assets/Asset';
 
 const RenderRoutes = observer((props) =>
-  !storageGet('account') ? (
+  storageGet('account') ? (
     <Switch>
       <Route
         path="/dashboard/assets"
