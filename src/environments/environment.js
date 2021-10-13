@@ -1,4 +1,4 @@
-let core = 'https://vitalii427-hermes.ambrosus-test.io';
+let core = '';
 let test = false;
 let prod = false;
 let dev = false;
