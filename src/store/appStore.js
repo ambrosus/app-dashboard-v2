@@ -16,7 +16,7 @@ export class AppStore {
   getStoreAssets() {
     getAssets().then((assets) => {
       runInAction(() => {
-        this.assets = assets;
+        this.assets = assets.data;
       });
       console.log('this.assets', this.assets);
     });

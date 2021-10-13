@@ -152,7 +152,7 @@
         justify-content: space-between;
         height: 100%;
         width: 100%;
-
+        padding-bottom: 8px;
         &--title {
           padding-top: 10px;
           font-family: Rubik;
@@ -271,6 +271,7 @@
 }
 
 .prop-add-btn {
+  padding-top: 10px ;
   cursor: pointer;
   flex-direction: row;
   gap: 8px;

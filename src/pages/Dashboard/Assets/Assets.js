@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ReactSVG } from 'react-svg';
@@ -23,7 +24,6 @@ const Assets = observer(() => {
   };
   useEffect(async () => {
     await appStore.getStoreAssets();
-    console.log('appStore.assets', appStore.assets);
   }, []);
 
   return (
@@ -121,7 +121,19 @@ const Assets = observer(() => {
         </div>
       </div>
       <div className="assets-list">
-        <AssetItem />
+        {appStore.assets.length > 0 &&
+          appStore.assets.map((asset, index) => {
+            console.log('[ASSET]:', asset);
+            return (
+              <div key={index}>
+                <AssetItem
+                  name={asset.info.name}
+                  address={asset.assetId}
+                  timestamp={asset.content.idData.timestamp}
+                />
+              </div>
+            );
+          })}
       </div>
     </div>
   );

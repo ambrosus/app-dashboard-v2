@@ -20,23 +20,26 @@ const initSDK = () => {
     },
   });
 };
-
-export const getAssets = async (limit = 15, next = '') => {
-  initSDK();
+initSDK();
+export const getAssets = async (options = {}) => {
+  let { limit, next } = options;
   const account = storageGet('account') || {};
   const { organization } = account;
+  limit = limit || 15;
+  next = next || '';
 
   let url = `${environment.api.extended}`;
-
   const token = storageGet('token');
 
-  const httpOptions = {
+  let httpOptions = {
     headers: {
+      'Access-Control-Allow-Origin': ' *',
+      'Content-Type': 'application/json',
       Authorization: `AMB_TOKEN ${token}`,
       Accept: 'application/json',
     },
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       query: [
         {
           field: 'organizationId',
@@ -46,13 +49,60 @@ export const getAssets = async (limit = 15, next = '') => {
       ],
       limit,
       next,
-    },
+    }),
   };
+  let assets = await fetchAPI(url, 'asset2/query', httpOptions);
+  if (assets) {
+    if (assets?.error) {
+      messageServiceError(assets.error);
+      return;
+    }
+    console.log('[GET] Assets: ', assets?.data);
 
-  const assets = await fetchAPI(url, '/asset2/query', httpOptions);
-  if (assets.error) {
-    messageServiceError(assets.error);
-    return;
+    const ids =
+      assets &&
+      assets?.data.reduce((_ids, asset, index, array) => {
+        _ids.push(asset.assetId);
+        return _ids;
+      }, []);
+
+    // Get latest info events
+    url = `${environment.api.extended}`;
+    httpOptions = {
+      headers: {
+        'Access-Control-Allow-Origin': ' *',
+        'Content-Type': 'application/json',
+        Authorization: `AMB_TOKEN ${token}`,
+        Accept: 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        assets: ids,
+        type: 'ambrosus.asset.info',
+      }),
+    };
+    const infoEvents = await fetchAPI(url, 'event2/latest/type', httpOptions);
+    if (infoEvents?.error) {
+      messageServiceError(infoEvents.error);
+      return;
+    }
+    console.log('[GET] Info events: ', infoEvents?.data);
+
+    // Connect assets with info events
+    assets.data = assets?.data.map((asset) => {
+      asset.info = infoEvents.data.find(
+        (event) => asset.assetId === event.content.idData.assetId,
+      );
+
+      if (asset.info) {
+        if (ambrosus) {
+          asset.info = ambrosus.utils.findEvent('info', [asset.info]);
+        }
+      }
+
+      return asset;
+    });
+    console.log('[ASSETS]:', assets);
+    return assets;
   }
-  return assets;
 };
